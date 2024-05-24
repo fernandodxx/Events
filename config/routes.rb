@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'user_sessions/new'
   get 'users/index'
   get 'users/new'
   get 'events/index'
