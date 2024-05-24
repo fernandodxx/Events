@@ -1,5 +1,14 @@
 <%= form_with model: event do |f| %>
-
+  <% if @event.errors.any? %>
+    <div>
+      <ul>
+        <% @event.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  
   <div>
     <%= f.label :name, "Event name" %>
     <%= f.text_field :name %>
