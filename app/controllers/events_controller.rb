@@ -1,5 +1,6 @@
 class EventsController < ApplicationController
   before_action :set_event, only: %i[ show edit update destroy ]
+  before_action :current_user, only: %i[ index new ]
 
   def index
     @events = Event.all
@@ -19,16 +20,12 @@ class EventsController < ApplicationController
   end
 
   def show
-    @event = Event.find(params[:id])
   end
 
   def edit
-    @event = Event.find(params[:id])
   end
 
   def update
-    @event = Event.find(params[:id])
-
     if @event.update(event_params)
       redirect_to @event
     else
