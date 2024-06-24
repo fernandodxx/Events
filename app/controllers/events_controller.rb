@@ -1,17 +1,17 @@
 class EventsController < ApplicationController
   before_action :set_event, only: %i[ show edit update destroy ]
-  before_action :current_user, only: %i[ index new ]
+  before_action :authorize, only: %i[ new create update destroy ]
 
   def index
     @events = Event.all
   end
 
   def new
-    @event = Event.new
+    @event = current_user.events.build
   end
 
   def create
-    @event = Event.new(event_params)
+    @event = current_user.events.build(event_params)
     if @event.save
       redirect_to @event
     else
@@ -39,6 +39,8 @@ class EventsController < ApplicationController
 
     redirect_to root_path, status: :see_other 
   end
+
+  
 
   private
     def set_event
