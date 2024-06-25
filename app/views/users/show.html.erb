@@ -1,7 +1,30 @@
-<h1>Seus eventos <%= current_user.name %></h1>
+<h1>Eventos <%= current_user.name %></h1>
 
 <ul>
   <% @user.events.each do |event|%>
     <p><%= link_to event.name , event %></p>
   <% end %>
 <ul>
+
+<h2>Eventos que participei</h2>
+
+<h3>Eventos Futuros</h3>
+<ul>
+  <% @user.attended_events.select(&:future?).each do |event| %>
+    <li>
+      <%= link_to event.name, event_path(event) %>
+      em <%= l(event.date, format: :long) %>
+    </li>
+  <% end %>
+</ul>
+
+<h3>Eventos Passados</h3>
+<ul>
+  <% @user.attended_events.select(&:past?).each do |event| %>
+    <li>
+      <%= link_to event.name, event_path(event) %>
+      em <%= l(event.date, format: :long) %>
+    </li>
+  <% end %>
+</ul>
+
