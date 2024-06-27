@@ -15,9 +15,17 @@
 </table>
 
 <% if user_signed_in? %>
-  <%= form_with url: event_event_participants_path(@event), method: :post do %>
-    <%= submit_tag 'Participar deste evento' %>
+  <% if @event.participants.include?(current_user) %>
+    <%= form_with url: event_event_participant_path(@event, current_user.event_participants.find_by(event: @event)), method: :delete do %>
+      <%= submit_tag 'Retirar deste evento' %>
+    <% end %>
+  
+  <% else %>
+    <%= form_with url: event_event_participants_path(@event), method: :post do %>
+      <%= submit_tag 'Participar deste evento' %>
+    <% end %>
   <% end %>
+
 <% else %>
   <p>Você precisa estar logado para se registrar neste evento.</p>
   <%= link_to 'Login', new_user_session_path %>
