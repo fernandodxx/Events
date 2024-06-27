@@ -7,6 +7,9 @@ class Event < ApplicationRecord
   validates :name, length: { minimum: 2 }
   validates :description, length: { minimum: 20 }
 
+  scope :past, -> { where('date < ?', Date.today) }
+  scope :future, -> { where('date > ?', Date.today)}
+
   def past?
     date < Date.today
   end

@@ -3,7 +3,8 @@ class EventsController < ApplicationController
   before_action :authorize, only: %i[ new create update destroy ]
 
   def index
-    @events = Event.all
+    @past_events = Event.past
+    @future_events = Event.future
   end
 
   def new

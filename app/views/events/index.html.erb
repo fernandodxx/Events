@@ -11,10 +11,27 @@
 
 <h1>Events</h1>
 
+<nav>
+  <%= link_to 'Eventos Futuros', events_path %>
+  <%= link_to 'Eventos Passados', events_path(anchor: 'past_events') %>
+</nav>
+
+<h2>Eventos Futuros</h2>
 <ul>
-  <% @events.each do |event|%>
-    <li><%= link_to event.name , event %></li>
+  <% @future_events.each do |event| %>
+    <li>
+      <%= link_to event.name, event_path(event) %> em <%= l(event.date, format: :long) %>
+    </li>
   <% end %>
+</ul>
+
+<h2 id="past_events">Eventos Passados</h2>
 <ul>
+  <% @past_events.each do |event| %>
+    <li>
+      <%= link_to event.name, event_path(event) %> em <%= l(event.date, format: :long) %>
+    </li>
+  <% end %>
+</ul>
 
 <%= link_to "New event", new_event_path %>
